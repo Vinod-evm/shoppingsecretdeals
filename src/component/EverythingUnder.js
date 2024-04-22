@@ -11,7 +11,7 @@ const EverythingUnder = () => {
   }, []);
 
   return (
-    <div>
+    <div className='under_section'>
       <div className="under-container">
         {unders.slice().reverse().map(under => (
           <div key={under.id} className="under-item">

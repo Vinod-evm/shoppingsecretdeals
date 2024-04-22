@@ -1,3 +1,25 @@
+body{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+a,span{
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.heading{
+    font-weight: 700;
+    font-size: 30px;
+}
+.margin-top{
+    margin-top:50px;
+}
 .wrapper{
     overflow:hidden;
 }
@@ -120,19 +142,171 @@ footer {
     margin: 10px 7px;
     object-fit: contain;
 }
+.under_section {
+    width: 80%;
+    margin: 0 auto;
+}
 .under-container {
     display: flex;
     justify-content: space-between;
 }
+.under-item img {
+    width: 100%;
+    padding: 20px;
+}
 .deal-item img {
     width: 100%;
-    height: 400px;
+    height: 200px;
+    max-width: 200px;
     padding: 20px;
     object-fit: contain;
+    margin: 0 auto;
+}
+.deal-item{
+    border: 1px solid rgba(159,159,159, 0.35);
+    padding: 12px;
+    transition: box-shadow 0.4s ease;
+}
+.deal-item:hover{
+    box-shadow: 0 0 20px #ddd;
+}
+.deal-section .slick-slide > div {
+    padding: 8px 15px;
+}
+.deal-item a.buy_btn {
+    background: none #b65953 ;
+    color: #ffffff;
+    fill: #ffffff;
+    text-decoration: none ;
+    box-shadow: -1px 6px 19px rgba(182,89,83,0.2) ;
+    border-radius: 4px ;
+    width: 100%;
+    display: block;
+    padding: 12px;
+    text-align: center;
+}
+.deal-item a.buy_btn:hover {
+    background: none #191919 ;
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: -1px 6px 13px rgba(25,25,25,0.4) ;
+}
+.trend-item{
+    border: 1px solid rgba(159,159,159, 0.35);
+    padding: 12px;
+    transition: box-shadow 0.4s ease;
+    margin: 10px 0;
+}
+.trend-item:hover{
+    box-shadow: 0 0 20px #ddd;
 }
 .trend-item img {
+        width: 100%;
+        height: 200px;
+        max-width: 200px;
+        padding: 20px;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+}
+.trend-item a.buy_btn {
+    background: none #b65953 ;
+    color: #ffffff;
+    fill: #ffffff;
+    text-decoration: none ;
+    box-shadow: -1px 6px 19px rgba(182,89,83,0.2) ;
+    border-radius: 4px ;
     width: 100%;
-    height: 400px;
-    padding: 20px;
-    object-fit: contain;
+    display: block;
+    padding: 12px;
+    text-align: center;
+}
+.trend-item a.buy_btn:hover {
+    background: none #191919 ;
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: -1px 6px 13px rgba(25,25,25,0.4) ;
+}
+.product_ttl {
+    font-size: 15px;
+    font-weight: normal;
+    color: #111;
+    margin: 20px 0px;
+}
+.trend-item h2{
+    min-height: 65px;
+}
+span.trend_offer_price {
+    color: #000;
+    font-weight: bold;
+    font-size: 18px;
+}
+span.trend_old_price {
+    color: #dd7064;
+    font-size: 14px;
+    display: inline-block;
+    margin-left: 10px;
+}
+.trend-item a {
+    text-decoration: none;
+}
+.deal-item h2 {
+    min-height: 65px;
+}
+button.loadmore {
+    background-color: #000;
+    border: 0 !important;
+    border-radius: 1em;
+    box-shadow: none!important;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1em;
+    text-decoration: none !important;
+    transition: border-radius .5s;
+    padding: 17px 68px;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin: 50px auto;
+}
+.category-item img {
+    width: 100%;
+    max-width: 150px;
+    height: 150px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 0 auto;
+}
+.category-item {
+    text-align: center;
+}
+.category_slider {
+    width: 80%;
+    margin: 50px auto 0;
+}
+span.offer_price {
+    color: #f04057;
+    font-weight: bold;
+    font-size: 18px;
+    display: block;
+}
+span.old_price {
+    color: #666;
+    font-size: 14px;
+    margin-top: -6px;
+    display: block;
+}
+.deal-item a {
+    text-decoration: none;
+}
+.category_slider button.slick-arrow {
+    background: #00000082;
+}
+.category-item span {
+    font-weight: bold;
+    color: #000;
+    font-size: 16px;
+    padding-top: 20px;
+    display: block;
 }

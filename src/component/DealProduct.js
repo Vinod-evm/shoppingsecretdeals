@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const DealProduct = () => {
   const [dealProducts, setDealPro] = useState([]);
+  console.log(dealProducts,"dealProducts");
 
   useEffect(() => {
     fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/posts')
@@ -19,7 +20,7 @@ const DealProduct = () => {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     responsive: [
       {
@@ -44,17 +45,17 @@ const DealProduct = () => {
   };
 
   return (
-    <div>
-        <h2>Deals Of The Day</h2>
+    <div className='deal-section margin-top'>
+        <h2 className='heading'>Deals Of The Day</h2>
       <Slider {...settings}>
         {dealProducts.map(pro => (
           <div key={pro.id} className="deal-item">
             {/* Access the first image URL from the og_image array */}
             <a href={pro.slug}>
               <img src={pro.jetpack_featured_media_url} alt={pro.name} />
-              <span>{pro.meta.rehub_main_product_price}</span>
-              <span>{pro.meta.rehub_offer_product_price}</span>
-              <h2>{pro.title.rendered}</h2>
+              <span className='offer_price'>{pro.meta.rehub_offer_product_price}</span>
+              <span className='old_price'><del>{pro.meta.rehub_offer_product_price_old}</del></span>
+              <h2 className='product_ttl'>{pro.title.rendered}</h2>
             </a>
             <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
               Buy it now

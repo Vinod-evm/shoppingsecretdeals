@@ -35,12 +35,13 @@ const CategorySlider = () => {
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     arrow: true,
     infinite: true,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 1,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,
@@ -70,6 +71,7 @@ const CategorySlider = () => {
   };
 
   return (
+    <div className='category_slider margin-top'>
     <Slider {...settings}>
       {categories.map(category => (
         <div key={category.id} className="category-item">
@@ -82,6 +84,7 @@ const CategorySlider = () => {
         </div>
       ))}
     </Slider>
+    </div>
   );
 };
 
