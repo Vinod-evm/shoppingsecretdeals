@@ -16,6 +16,17 @@ const TrendingProduct = () => {
     setVisibleProducts(prevVisibleProducts => prevVisibleProducts + 12);
   };
 
+  const extractNumericalValue = (priceString) => {
+    // Extract numerical value from the string
+    return parseFloat(priceString.replace(/[^\d.-]/g, ''));
+  };
+
+  const calculateDiscountPercentage = (mainPrice, discountPrice) => {
+    const discountAmount = mainPrice - discountPrice;
+    const discountPercentage = (discountAmount / mainPrice) * 100;
+    return Math.round(discountPercentage); // Round the discount percentage to the nearest whole number
+  };
+
   return (
     <div className='trending-section margin-top'>
       <h2 className="heading">Trending Products</h2>
@@ -23,17 +34,23 @@ const TrendingProduct = () => {
         {trendProducts.slice(0, visibleProducts).map(pro => (
           <div key={pro.id} className="col-sm-3">
             <div className='trend-item'>
-            {/* Access the first image URL from the og_image array */}
-            <Link to={pro.slug}>
-              <img src={pro.jetpack_featured_media_url} alt={pro.name} />
-              <span className='trend_offer_price'>{pro.meta.rehub_main_product_price}</span>
-              <span className='trend_old_price'><del>{pro.meta.rehub_offer_product_price}</del></span>
-              <h2 className='product_ttl'>{pro.title.rendered}</h2>
-            </Link>
-            <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
-              Buy it now
-            </a>
-          </div>
+              {/* Access the first image URL from the og_image array */}
+              <Link to={pro.slug}>
+                <img src={pro.jetpack_featured_media_url} alt={pro.name} />
+                <span className='trend_offer_price'>{pro.meta.rehub_offer_product_price}</span>
+                <span className='trend_old_price'><del>{pro.meta.rehub_offer_product_price_old}</del></span>
+                <h2 className='product_ttl'>{pro.title.rendered}</h2>
+                <span className='discount_percentage'>
+                  {calculateDiscountPercentage(
+                    extractNumericalValue(pro.meta.rehub_offer_product_price_old),
+                    extractNumericalValue(pro.meta.rehub_offer_product_price)
+                  )}%
+                </span>
+              </Link>
+              <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
+                Buy it now
+              </a>
+            </div>
           </div>
         ))}
       </div>

@@ -14,6 +14,17 @@ const DealProduct = () => {
       .catch(error => console.error('Error fetching product:', error));
   }, []);
 
+  const extractNumericalValue = (priceString) => {
+    // Extract numerical value from the string
+    return parseFloat(priceString.replace(/[^\d.-]/g, ''));
+  };
+
+  const calculateDiscountPercentage = (mainPrice, discountPrice) => {
+    const discountAmount = mainPrice - discountPrice;
+    const discountPercentage = (discountAmount / mainPrice) * 100;
+    return Math.round(discountPercentage); // Round the discount percentage to the nearest whole number
+  };
+
   const settings = {
     dots: false,
     infinite: true,
@@ -56,6 +67,12 @@ const DealProduct = () => {
               <span className='offer_price'>{pro.meta.rehub_offer_product_price}</span>
               <span className='old_price'><del>{pro.meta.rehub_offer_product_price_old}</del></span>
               <h2 className='product_ttl'>{pro.title.rendered}</h2>
+              <span className='discount_percentage'>
+                  {calculateDiscountPercentage(
+                    extractNumericalValue(pro.meta.rehub_offer_product_price_old),
+                    extractNumericalValue(pro.meta.rehub_offer_product_price)
+                  )}%
+                </span>
             </a>
             <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
               Buy it now

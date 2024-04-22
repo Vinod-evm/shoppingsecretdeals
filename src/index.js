@@ -21,9 +21,9 @@ export default function App() {
       <Route path="affiliate-disclosures" element={<AffiliateDisclosures />} />
       <Route path="about-us" element={<About />} />
       <Route path="contact-us" element={<Contact />} />
-      <Route path=":category/:slug" element={<Category />} />
-      <Route path=":slug" element={<ProductDetail />} />
       <Route path="/search/:searchTerm" element={<SearchResult />} />
+      <Route path=":slug" element={<ProductDetail />} />
+      <Route path=":category/:slug" element={<Category />} />
       <Route path="*" element={<NoPage />} />
     </Route>
   </Routes>
