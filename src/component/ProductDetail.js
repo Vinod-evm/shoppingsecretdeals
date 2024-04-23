@@ -98,7 +98,6 @@ const ProductDetail = () => {
                         <h4>{recommendedProduct.title.rendered}</h4>
                         <div className="recommended-prices">
                           <span className='recommended-offer-price'>{recommendedProduct.meta.rehub_offer_product_price}</span>
-                          <span className='recommended-old-price'><del>{recommendedProduct.meta.rehub_offer_product_price_old}</del></span>
                         </div>
                       </Link>
                     </div>

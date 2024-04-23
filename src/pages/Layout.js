@@ -3,10 +3,13 @@ import logo from "../images/Shopping-secret-deals-logo.png"
 import '../css/home.css';
 import Footer from "../pages/Footer"
 import SearchForm from "../component/SearchForm" 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFire } from '@fortawesome/free-solid-svg-icons';
 
 const Layout = () => {
   return (
     <div className="wrapper">
+      <div className="top_header"><a href="#"> <FontAwesomeIcon icon={faFire} /> Shop Now at Lowest Price</a></div>
     <div className="container-fluid">
       <div className="header row">
         {/* Left Column for Logo */}

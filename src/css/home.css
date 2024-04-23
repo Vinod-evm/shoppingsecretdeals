@@ -23,6 +23,23 @@ a,span{
 .wrapper{
     overflow:hidden;
 }
+.top_header {
+    background: #000;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0;
+}
+.top_header a {
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+}
+.top_header a path {
+    color: #a14143;
+}
+.top_header a svg {
+    margin-right: 4px;
+}
 .container-fluid {
     width: 90%;
 }
@@ -98,6 +115,7 @@ li.nav-item:nth-child(2) a{
     height: 38px;
     background-color: #fff;
     padding: 2px 45px 2px 12px;
+    width: 100%;
 }
 .search_form button {
     border: none;
@@ -111,6 +129,70 @@ li.nav-item:nth-child(2) a{
     right: 0;
     background: #000;
     color: #fff;
+}
+/* home banner */
+/* CSS for the home banner */
+.banner-item img{
+    width:100%;
+}
+.home_banner {
+    position: relative;
+  }
+  
+  /* CSS for the custom arrows */
+  .banner-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 1; /* Ensure arrows appear above the slider */
+    color: #fff;
+  }
+  .banner-arrow svg{
+    width: 40px;
+    height: 40px;
+  }
+  /* CSS for the left arrow */
+  .banner-arrow.left-arrow {
+    left: 10px; /* Adjust as needed */
+  }
+  
+  /* CSS for the right arrow */
+  .banner-arrow.right-arrow {
+    right: 10px; /* Adjust as needed */
+  }
+  /* category slider */
+  .category_slider {
+    position: relative;
+  }
+  .category-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-185%);
+    cursor: pointer;
+    z-index: 1;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    width: 30px;
+    text-align: center;
+    height: 30px;
+    padding: 2px;
+  }
+  .category-arrow.prev-arrow {
+    left: 15px; /* Adjust as needed */
+  }
+  .category-arrow.next-arrow {
+    right: 15px; /* Adjust as needed */
+  }
+  .category-arrow.next-arrow:hover,.category-arrow.prev-arrow:hover{
+        background: #a14143;
+  }
+  .category-arrow svg {
+    width: 10px;
+    height: 10px;
+    vertical-align: middle;
 }
 .footer-columns {
     display: flex;
@@ -141,12 +223,22 @@ footer {
     width: 50%;
 }
 .footer_logo img {
-    width: 100%;
+    width: 50%;
 }
 .footer_social img {
-    width: 11%;
-    margin: 10px 7px;
-    object-fit: contain;
+    width: 50px;
+    margin: 10px 4px;
+}
+.footer_social h3 {
+    color: #fff;
+    font-size: 20px;
+}
+.footer_social a{ position: relative;}
+.footer_social a:hover {
+    top: 2px;
+}
+.footer-column {
+    flex-grow: 1;
 }
 .under_section {
     width: 80%;
@@ -159,6 +251,27 @@ footer {
 .under-item img {
     width: 100%;
     padding: 20px;
+}
+/* deal section */
+.loin_link {
+    text-align: center;
+    margin: 50px;
+}
+.loin_link a {
+    text-decoration: none;
+    color: #fff;
+    background: #b65953;
+    font-size: 14px;
+    padding: 8px 12px 8px 8px;
+    border-radius: 20px;
+    transition: border-radius .5s;
+}
+.loin_link svg {
+    fill: #fff;
+    margin-right: 8px;
+}
+.loin_link a:hover {
+    border-radius: inherit;
 }
 .deal-item img {
     width: 100%;
@@ -191,6 +304,12 @@ footer {
     display: block;
     padding: 12px;
     text-align: center;
+    margin-bottom: 10px;
+}
+.category_info a {
+    color: #555;
+    text-transform: uppercase;
+    font-size: 11px;
 }
 .deal-item a.buy_btn:hover {
     background: none #191919 ;
@@ -318,6 +437,9 @@ span.old_price {
     padding-top: 20px;
     display: block;
 }
+.category-item a {
+    text-decoration: none;
+}
 span.discount_percentage {
     padding: 3px 7px;
     font: bold 12px / 15px Arial;
@@ -330,6 +452,7 @@ span.discount_percentage {
     background: #77b21d;
     color: #fff;
     font-size: 15px;
+    border-radius: 3px;
 }
 .category_right h1 {
     font-size: 25px;
@@ -410,6 +533,7 @@ a.pdp_buy_btn {
 .recommended-product h4 {
     color: #111;
     font-size: 18px;
+    margin: 20px 0 10px;
 }
 .recommended-product a {
 text-decoration: none;
@@ -419,3 +543,99 @@ h3.related_heading {
     font-size: 19px;
     margin: 30px 0;
 }
+span.recommended-offer-price {
+    color: #a14143;
+    font-size: 20px;
+    font-weight: bold;
+}
+.recommended-product:hover h4 {
+    color: #a14143;
+}
+.product-details {
+    margin-bottom: 40px;
+}
+
+/* about page start*/
+.banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 300px;
+}
+.banner_heading {
+    color: #01367C;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: center;
+}
+.custom-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure the custom content div fills the height of the column */
+  }
+  
+  .custom-content img {
+    max-width: 100%; /* Ensure the image fits within its container */
+  }
+  .custom-content-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure the custom content div fills the height of the column */
+  }
+  
+  .custom-content-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure the custom content div fills the height of the column */
+  }
+  
+  .custom-content-2 img {
+    max-width: 100%; /* Ensure the image fits within its container */
+  }
+  .custom-happy-shopping-section .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .custom-happy-shopping-section .col {
+    text-align: center;
+  }
+  .happy_con {
+    color: #01367C;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+}
+.happy-shopping-section.custom-happy-shopping-section {
+    padding: 50px 40px;
+    border-radius: 20px;
+    margin: 60px 0;
+}
+h2.happy_ttl {
+    color: #01367C;
+    font-size: 55px;
+    font-weight: 900;
+    margin: 40px 0;
+}
+.best_deal_section {
+    background: #2575FA;
+    width: 100%;
+    height: 400px;
+    margin-top: 100px;
+}
+  .best-deal-right {
+    margin-top: -76px;
+    text-align: center;
+}  
+
+/* contact us css */
+.contact_social_area {
+    background: #FAFFE1;
+}
+  
