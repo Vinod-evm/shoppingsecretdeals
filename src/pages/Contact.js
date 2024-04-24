@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import tegramImage from '../images/telegramimage.png';
+import fb from "../images/fb.png"
+import insta from "../images/insta.png"
+import twitter from "../images/twitter.png"
+import telegram from "../images/telegram.png"
 
 const ContactPage = () => {
   const [contactData, setContactData] = useState(null);
@@ -46,12 +51,12 @@ const ContactPage = () => {
           <div className='col-md-6 d-flex align-items-center'>
             <div className='contact_social_area'>
               <div className='social_links'>
-                <a href={contactData.acf.telegram_link} target='_blank' rel='noopener noreferrer'><img src='https://shoppingsecretdeals.com/wp-content/themes/rehub-theme/images/fb.png'/></a>
-                <a href={contactData.acf.facebook_link} target='_blank' rel='noopener noreferrer'><img src='https://shoppingsecretdeals.com/wp-content/themes/rehub-theme/images/fb.png'/></a>
-                <a href={contactData.acf.instagram_link} target='_blank' rel='noopener noreferrer'><img src='https://shoppingsecretdeals.com/wp-content/themes/rehub-theme/images/fb.png'/></a>
-                <a href={contactData.acf.twitter_link} target='_blank' rel='noopener noreferrer'><img src='https://shoppingsecretdeals.com/wp-content/themes/rehub-theme/images/fb.png'/></a>
+                <a href={contactData.acf.facebook_link} target='_blank' rel='noopener noreferrer'><img src={fb} /></a>
+                <a href={contactData.acf.twitter_link} target='_blank' rel='noopener noreferrer'><img src={twitter}/></a>
+                <a href={contactData.acf.instagram_link} target='_blank' rel='noopener noreferrer'><img src={insta}/></a>
+                <a href={contactData.acf.telegram_link} target='_blank' rel='noopener noreferrer'><img src={telegram}/></a>
               </div>
-              <div className='telegram_button'><a></a></div>
+              <div className='telegram_button'><a><img src={tegramImage} />Join Our Telegram Channel</a></div>
             </div>
           </div>
         </div>

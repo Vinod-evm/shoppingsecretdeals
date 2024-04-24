@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import CategorySidebar from '../component/CategorySidebar';
 
 const ProductDetail = () => {
   const { slug } = useParams(); // Get the dynamic slug from the URL
@@ -59,17 +60,17 @@ const ProductDetail = () => {
             <div key={pro.id} className="col-sm-3">
               <div className='trend-item'>
                 <Link to={`/${pro.slug}`}>
-                  <img src={pro.jetpack_featured_media_url} alt={pro.name} />
-                  <span className='trend_offer_price'>{pro.meta.rehub_offer_product_price}</span>
-                  <span className='trend_old_price'><del>{pro.meta.rehub_offer_product_price_old}</del></span>
-                  <h2 className='product_ttl'>{pro.title.rendered}</h2>
+                  <img src={pro.jetpack_featured_media_url} alt={pro.name} /></Link>
+                  <span className='cat_p_offer_price'>{pro.meta.rehub_offer_product_price}</span>
+                  <span className='cat_p_old_price'><del>{pro.meta.rehub_offer_product_price_old}</del></span>
+                  <Link to={`/${pro.slug}`}> <h2 className='product_ttl'>{pro.title.rendered}</h2></Link>
                   <span className='discount_percentage'>
                     {calculateDiscountPercentage(
                       extractNumericalValue(pro.meta.rehub_offer_product_price_old),
                       extractNumericalValue(pro.meta.rehub_offer_product_price)
                     )}%
                   </span>
-                </Link>
+                
                 <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
                   Buy it now
                 </a>
@@ -98,17 +99,7 @@ const ProductDetail = () => {
       <div className="row">
         {/* Left Sidebar - Category List */}
         <div className="col-md-3">
-        <div className='category_left'>
-          <h2>Categories</h2>
-          {/* Render category list */}
-          <ul>
-            {categoryList.map(cat => (
-              <li key={cat.id}>
-                <Link to={`/category/${cat.slug}`}>{cat.name}</Link>
-              </li>
-            ))}
-          </ul>
-          </div>
+          <CategorySidebar/>
         </div>
         {/* Right Sidebar - Current Category and Products */}
         <div className="col-md-9">

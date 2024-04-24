@@ -60,7 +60,7 @@ const TrendingProduct = () => {
             ))}
           </div>
           {visibleProducts < trendProducts.length && (
-            <button className="loadmore" onClick={loadMore}>Load More</button>
+            <button className="loadmore" onClick={loadMore}>Show Next</button>
           )}
         </>
       )}

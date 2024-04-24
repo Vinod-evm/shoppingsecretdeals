@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import CategorySidebar from '../component/CategorySidebar';
 
 const ProductDetail = () => {
   const { slug } = useParams(); // Get the dynamic slug from the URL
@@ -26,15 +27,6 @@ const ProductDetail = () => {
       .catch(error => console.error('Error fetching product:', error));
   }, [slug]); // Include slug in dependency array to re-fetch when it changes
 
-  useEffect(() => {
-    // Fetch category list
-    fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/categories?per_page=50')
-      .then(response => response.json())
-      .then(data => {
-        setCategoryList(data); // Set category list
-      })
-      .catch(error => console.error('Error fetching category list:', error));
-  }, []);
 
   useEffect(() => {
     // Fetch recommended products with the same category
@@ -54,17 +46,7 @@ const ProductDetail = () => {
       <div className="row">
         {/* Left Sidebar - Category List */}
         <div className="col-md-3">
-          <div className='category_left'>
-            <h2>Categories</h2>
-            {/* Render category list */}
-            <ul>
-              {categoryList.map(cat => (
-                <li key={cat.id}>
-                  <Link to={`/category/${cat.slug}`}>{cat.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+         <CategorySidebar/>
         </div>
         {/* Right Sidebar - Product Details */}
         <div className="col-md-9">

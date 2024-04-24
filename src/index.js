@@ -14,19 +14,20 @@ import AffiliateDisclosures from './pages/AffiliateDisclosures'
 export default function App() {
   return (
 <BrowserRouter>
-  <Routes>
-    <Route path="/" element={<Layout />}>
-      <Route index element={<Home />} />
-      <Route path="hot-deals" element={<HotDeals />} />
-      <Route path="affiliate-disclosures" element={<AffiliateDisclosures />} />
-      <Route path="about-us" element={<About />} />
-      <Route path="contact-us" element={<Contact />} />
-      <Route path="/search/:searchTerm" element={<SearchResult />} />
-      <Route path=":slug" element={<ProductDetail />} />
-      <Route path=":category/:slug" element={<Category />} />
-      <Route path="*" element={<NoPage />} />
-    </Route>
-  </Routes>
+<Routes>
+  <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path="hot-deals" element={<HotDeals />} />
+    <Route path="affiliate-disclosures" element={<AffiliateDisclosures />} />
+    <Route path="about-us" element={<About />} />
+    <Route path="contact-us" element={<Contact />} />
+    <Route path="/search/:searchTerm" element={<SearchResult />} />
+    <Route path=":category/:slug" element={<Category />} /> {/* Specific category route */}
+    <Route path=":slug" element={<ProductDetail />} /> {/* Product detail route */}
+    <Route path="*" element={<NoPage />} /> {/* Catch-all route */}
+  </Route>
+</Routes>
+
 </BrowserRouter>
   );
 }

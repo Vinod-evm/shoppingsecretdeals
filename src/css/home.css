@@ -110,6 +110,15 @@ li.nav-item:nth-child(2) a{
     text-align: right;
     position: relative;
 }
+.live-search-results {
+    position: absolute;
+    background: #fff;
+    box-shadow: 0px 0px 3px -1px;
+    padding: 20px;
+    z-index: 1;
+    height: 400px;
+    overflow-y: scroll;
+}
 .search_form input[type="text"] {
     border: 1px solid #e1e1e1;
     height: 38px;
@@ -117,7 +126,7 @@ li.nav-item:nth-child(2) a{
     padding: 2px 45px 2px 12px;
     width: 100%;
 }
-.search_form button {
+.search_form .form_btn {
     border: none;
     cursor: pointer;
     padding: 0 16px;
@@ -129,6 +138,39 @@ li.nav-item:nth-child(2) a{
     right: 0;
     background: #000;
     color: #fff;
+}
+.list_pro {
+    display: flex;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.search_pro {
+    margin-right: 13px;
+}
+.search_pro span {
+    color: #009700;
+    font-size: 14px;
+}
+.s_pro_img img {
+    width: 100px;
+}
+.s_pro_ttl h4 {
+    color: #111;
+    font-size: 15px;
+    font-weight: bold;
+}
+.live-search-results button {
+    border: none;
+    background: transparent;
+    text-align: center;
+    margin: 0 auto;
+    align-items: center;
+    font-size: 12px;
+    font-style: italic;
+    width: 100%;
+}
+.s_pro_ttl a {
+    text-decoration: none;
 }
 /* home banner */
 /* CSS for the home banner */
@@ -240,6 +282,14 @@ footer {
 .footer-column {
     flex-grow: 1;
 }
+.bottom-footer {
+    background: #222;
+    padding: 20px 0;
+}
+.bottom-footer p {
+    margin: 0;
+    color: #fff;
+}
 .under_section {
     width: 80%;
     margin: 0 auto;
@@ -275,9 +325,9 @@ footer {
 }
 .deal-item img {
     width: 100%;
-    height: 200px;
+    height: 160px;
     max-width: 200px;
-    padding: 20px;
+    padding: 10px 20px;
     object-fit: contain;
     margin: 0 auto;
 }
@@ -305,6 +355,8 @@ footer {
     padding: 12px;
     text-align: center;
     margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .category_info a {
     color: #555;
@@ -347,6 +399,8 @@ footer {
     display: block;
     padding: 12px;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .trend-item a.buy_btn:hover {
     background: none #191919 ;
@@ -395,14 +449,15 @@ button.loadmore {
     text-align: center;
     display: block;
     margin: 50px auto;
+    font-weight: bold;
 }
 .category-item img {
     width: 100%;
     max-width: 150px;
     height: 150px;
-    border: 1px solid #000;
+    border: 2px solid #000;
     border-radius: 50%;
-    padding: 10px;
+    padding: 0px;
     margin: 0 auto;
 }
 .category-item {
@@ -411,6 +466,30 @@ button.loadmore {
 .category_slider {
     width: 80%;
     margin: 50px auto 0;
+}
+span.cat_p_offer_price {
+    color: #f04057;
+    font-weight: bold;
+    font-size: 18px;
+}
+span.cat_p_old_price {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    font-weight: normal;
+    text-align: left;
+}
+.category-page img {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 160px;
+}
+.trend-item {
+    border: 1px solid rgba(159, 159, 159, 0.35);
+    padding: 12px;
+    transition: box-shadow 0.4s ease;
+    margin: 10px 0;
+    position: relative;
 }
 span.offer_price {
     color: #f04057;
@@ -434,7 +513,7 @@ span.old_price {
     font-weight: bold;
     color: #000;
     font-size: 16px;
-    padding-top: 20px;
+    padding-top: 10px;
     display: block;
 }
 .category-item a {
@@ -445,9 +524,8 @@ span.discount_percentage {
     font: bold 12px / 15px Arial;
     position: absolute;
     text-align: center;
-    top: 4px;
-    right: 4px;
-    z-index: 1;
+    top: 10px;
+    right: 10px;
     margin: 0;
     background: #77b21d;
     color: #fff;
@@ -499,6 +577,9 @@ span.discount_percentage {
     display: block;
     text-align: right;
     margin: 20px 0;
+    border-top: 1px solid #c5c5c54d;
+    border-bottom: 1px solid #c5c5c54d;
+    padding: 25px 0;
 }
 .pdp-prices {
     display: inline-block;
@@ -516,16 +597,43 @@ a.pdp_buy_btn {
     background: none #b65953;
     color: #ffffff;
     text-decoration: none;
-    box-shadow: -1px 6px 19px rgba(182,89,83,0.2);
+    box-shadow: -1px 6px 19px rgba(182, 89, 83, 0.2);
     border-radius: 4px;
     padding: 8px 12px;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .pdp_buy_btn:hover {
     background: none #191919;
     color: #ffffff;
     border-color: transparent;
     box-shadow: -1px 6px 13px rgba(25,25,25,0.4);
+}
+.product-details ul {
+    padding-left: 20px;
+}
+.product-details ol {
+    padding-left: 20px;
+}
+.product-details h2 {
+    font-weight: bold;
+    margin: 25px 0 30px 0;
+    font-size: 25px;
+}
+.product-details h2 span {
+    font-weight: bold;
+}
+.product-details li {
+    margin: 0 0 5px 0px;
+}
+.product-details ol a {
+    color: #a14143;
+}
+.deal-description h1 {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 25px 0 30px 0;
 }
 .recommended-product img {
     width: 100%;
@@ -637,5 +745,58 @@ h2.happy_ttl {
 /* contact us css */
 .contact_social_area {
     background: #FAFFE1;
+}
+.contact_social_area {
+    background: #FAFFE1;
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+}
+.social_links a img {
+    width: 50px;
+    margin-right: 20px;
+}
+.telegram_button {
+    background: #C4ECFE;
+    border-radius: 50px;
+    padding: 5px;
+    margin: 20px 0;
+}
+.telegram_button a {
+ font-size: 20px;
+}
+.telegram_button img {
+    margin-right: 15px;
+}
+.contact-page {
+    margin-bottom: 50px;
+}
+
+/* affiliate disclosure */
+h2.affiliate_top_ttl {
+    text-transform: capitalize;
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
+    margin-bottom: 57px;
+}
+.affiliate_con h3 {
+    font-size: 20px;
+    line-height: 28px;
+    margin: 10px 0 25px 0;
+    font-weight: bold;
+}
+.affiliate_con h4 {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 10px 0 18px 0;
+    font-weight: bold;
+}
+.affiliate-disclosures-page {
+    margin-bottom: 50px;
+}
+.hot-deal_container {
+    width: 90%;
+    margin: 50px auto 0;
 }
   

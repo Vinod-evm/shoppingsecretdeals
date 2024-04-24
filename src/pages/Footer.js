@@ -40,10 +40,13 @@ class Footer extends Component {
           <SearchForm/>
         </div>
       </div>
-      <div className="bottom-footer">
-        {/* Content for bottom footer */}
-      </div>
+     
     </div>
+    <div className="bottom-footer">
+    <div className="container-fluid">
+       <p>All rights reserved.</p>
+      </div>
+      </div>
     </footer>
     );
   }
