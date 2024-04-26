@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [showAllResults, setShowAllResults] = useState(false);
+  const [showAllResults,] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef(null);
 

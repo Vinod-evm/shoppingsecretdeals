@@ -37,8 +37,6 @@ const DealProduct = () => {
   }, []);
   
 
-
-
   const fetchCategoryInfo = (categoryId) => {
     return fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/categories/${categoryId}`)
       .then(response => response.json())
