@@ -9,7 +9,7 @@ import { faFire } from '@fortawesome/free-solid-svg-icons';
 const Layout = () => {
   return (
     <div className="wrapper">
-      <div className="top_header"><a href="#"> <FontAwesomeIcon icon={faFire} /> Shop Now at Lowest Price</a></div>
+      <div className="top_header"><a href="/"> <FontAwesomeIcon icon={faFire} /> Shop Now at Lowest Price</a></div>
     <div className="container-fluid">
       <div className="header row">
         {/* Left Column for Logo */}

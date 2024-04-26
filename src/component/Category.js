@@ -7,16 +7,19 @@ const ProductDetail = () => {
   const [category, setCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-  console.log(slug,'slug');
+  console.log(categoryList,'categoryList');
 
   // Fetch category list
   useEffect(() => {
+    function fetchCatList() {
     fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/categories?per_page=50')
       .then(response => response.json())
       .then(data => {
         setCategoryList(data); // Set category list
       })
       .catch(error => console.error('Error fetching category list:', error));
+    }
+    fetchCatList();
   }, []);
 
   // Fetch category information using the slug

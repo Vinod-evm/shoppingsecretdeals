@@ -45,18 +45,18 @@ const ContactPage = () => {
         <div className='row'>
           <div className='col-md-6 d-flex align-items-center'>
             <div className='contact_image_area'>
-              <img src={contactData.acf.contact_right_image} alt='Contact Right Image' className='img-fluid' />
+              <img src={contactData.acf.contact_right_image} alt='Contact Right' className='img-fluid' />
             </div>
           </div>
           <div className='col-md-6 d-flex align-items-center'>
             <div className='contact_social_area'>
               <div className='social_links'>
-                <a href={contactData.acf.facebook_link} target='_blank' rel='noopener noreferrer'><img src={fb} /></a>
-                <a href={contactData.acf.twitter_link} target='_blank' rel='noopener noreferrer'><img src={twitter}/></a>
-                <a href={contactData.acf.instagram_link} target='_blank' rel='noopener noreferrer'><img src={insta}/></a>
-                <a href={contactData.acf.telegram_link} target='_blank' rel='noopener noreferrer'><img src={telegram}/></a>
+                <a href={contactData.acf.facebook_link} target='_blank' rel='noopener noreferrer'><img alt='fb' src={fb} /></a>
+                <a href={contactData.acf.twitter_link} target='_blank' rel='noopener noreferrer'><img alt='x' src={twitter}/></a>
+                <a href={contactData.acf.instagram_link} target='_blank' rel='noopener noreferrer'><img alt='insta' src={insta}/></a>
+                <a href={contactData.acf.telegram_link} target='_blank' rel='noopener noreferrer'><img alt='tel' src={telegram}/></a>
               </div>
-              <div className='telegram_button'><a><img src={tegramImage} />Join Our Telegram Channel</a></div>
+              <div className='telegram_button'><a href="https://telegram.me/Shopping_Secret_Deals"><img alt='tel' src={tegramImage} />Join Our Telegram Channel</a></div>
             </div>
           </div>
         </div>

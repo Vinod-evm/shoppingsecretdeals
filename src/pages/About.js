@@ -40,7 +40,7 @@ const AboutUsPage = () => {
       <div className='row'>
   <div className='col-md-6 d-flex align-items-center'>
     <div className='custom-content'>
-      <img src={aboutUsData.acf.first_image} alt='First Image' className='img-fluid' />
+      <img src={aboutUsData.acf.first_image} alt='First' className='img-fluid' />
     </div>
   </div>
   <div className='col-md-6 d-flex align-items-center'>
@@ -59,7 +59,7 @@ const AboutUsPage = () => {
   </div>
   <div className='col-md-6'>
     <div className='custom-content-2'>
-      <img src={aboutUsData.acf.second_image} alt='Second Image' className='img-fluid' />
+      <img src={aboutUsData.acf.second_image} alt='Second' className='img-fluid' />
     </div>
   </div>
 </div>

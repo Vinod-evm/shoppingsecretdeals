@@ -29,7 +29,7 @@ const HotDeals = () => {
   return (
     <div className='Hot-deals-page'>
       <div className='hot_deal_banner'>
-        <img src={HotDealBanner}/>
+        <img alt="hot deal" src={HotDealBanner}/>
       </div>
        <div className="container-fluid">
         <div className='hot-deal_container'>

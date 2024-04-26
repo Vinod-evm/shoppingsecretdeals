@@ -12,10 +12,12 @@ const SearchForm = () => {
   const searchRef = useRef(null);
 
   useEffect(() => {
+    function clickAnywhere(){
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-    };
+    };}
+    clickAnywhere();
   }, []);
 
   const handleClickOutside = (event) => {

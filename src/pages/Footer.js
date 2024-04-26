@@ -20,10 +20,10 @@ class Footer extends Component {
           </div>
           <div className='footer_social'>
             <h3>Follow Us</h3>
-            <a target='_blank' href='https://www.facebook.com/ShoppingSecretDeals'><img src={ fb } alt="Facebook" /></a>
-            <a target='_blank' href='https://twitter.com/s_s_deals'><img src={ twitter } alt="Twitter" /></a>
-            <a target='_blank' href='https://www.instagram.com/shopping_secret_dealss/'><img src={ insta } alt="Instagram" /></a>
-            <a target='_blank' href='https://t.me/Shopping_Secret_Deals'><img src={ telegram } alt="telegram" /></a>
+            <a target='_blank'  rel="noreferrer" href='https://www.facebook.com/ShoppingSecretDeals'><img src={ fb } alt="Facebook" /></a>
+            <a target='_blank'  rel="noreferrer" href='https://twitter.com/s_s_deals'><img src={ twitter } alt="Twitter" /></a>
+            <a target='_blank'  rel="noreferrer" href='https://www.instagram.com/shopping_secret_dealss/'><img src={ insta } alt="Instagram" /></a>
+            <a target='_blank'  rel="noreferrer" href='https://t.me/Shopping_Secret_Deals'><img src={ telegram } alt="telegram" /></a>
           </div>
         </div>
         <div className="footer-column footer_link">

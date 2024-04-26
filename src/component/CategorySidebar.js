@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CategorySidebar = () => {
   const [categoryList, setCategoryList] = useState([]);
@@ -7,12 +7,15 @@ const CategorySidebar = () => {
 
   // Fetch category list
   useEffect(() => {
+    function fetchSidebarCat() {
     fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/categories?per_page=50')
       .then(response => response.json())
       .then(data => {
         setCategoryList(data); // Set category list
       })
       .catch(error => console.error('Error fetching category list:', error));
+    }
+      fetchSidebarCat();
   }, []);
 
 

@@ -10,28 +10,34 @@ const DealProduct = () => {
   const [showSlider, setShowSlider] = useState(false);
 
   useEffect(() => {
-    fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/posts')
-      .then(response => response.json())
-      .then(data => {
-        setDealProducts(data);
-        fetchCategoryNames(data);
-        setShowSlider(true);
-      })
-      .catch(error => console.error('Error fetching product:', error));
+    const fetchCategoryNames = (products) => {
+      const categoryIds = products.flatMap(pro => pro.categories);
+      const uniqueCategoryIds = [...new Set(categoryIds)];
+      Promise.all(uniqueCategoryIds.map(id => fetchCategoryInfo(id)))
+        .then(categories => {
+          const map = uniqueCategoryIds.reduce((acc, id, index) => {
+            acc[id] = categories[index];
+            return acc;
+          }, {});
+          setCategoryMap(map);
+        });
+    };
+    function fetchDealPost() {
+      fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/posts')
+        .then(response => response.json())
+        .then(data => {
+          setDealProducts(data);
+          fetchCategoryNames(data);
+          setShowSlider(true);
+        })
+        .catch(error => console.error('Error fetching product:', error));
+    }
+  
+    fetchDealPost();
   }, []);
+  
 
-  const fetchCategoryNames = (products) => {
-    const categoryIds = products.flatMap(pro => pro.categories);
-    const uniqueCategoryIds = [...new Set(categoryIds)];
-    Promise.all(uniqueCategoryIds.map(id => fetchCategoryInfo(id)))
-      .then(categories => {
-        const map = uniqueCategoryIds.reduce((acc, id, index) => {
-          acc[id] = categories[index];
-          return acc;
-        }, {});
-        setCategoryMap(map);
-      });
-  };
+
 
   const fetchCategoryInfo = (categoryId) => {
     return fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/categories/${categoryId}`)

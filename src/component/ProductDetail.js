@@ -5,7 +5,6 @@ import CategorySidebar from '../component/CategorySidebar';
 const ProductDetail = () => {
   const { slug } = useParams(); // Get the dynamic slug from the URL
   const [product, setProduct] = useState(null);
-  const [categoryList, setCategoryList] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   useEffect(() => {
