@@ -13,10 +13,12 @@ const Under299 = () => {
 
   useEffect(() => {
     fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]); // Fetch posts whenever currentPage changes
 
   useEffect(() => {
     generateVisiblePages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalPages, currentPage]); // Update visible pages whenever totalPages or currentPage changes
 
   const fetchPosts = () => {
