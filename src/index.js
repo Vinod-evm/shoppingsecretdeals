@@ -9,7 +9,11 @@ import NoPage from "./pages/NoPage";
 import ProductDetail from "./component/ProductDetail"
 import Category from "./component/Category"
 import SearchResult from './component/SearchResult';
-import AffiliateDisclosures from './pages/AffiliateDisclosures'
+import AffiliateDisclosures from './pages/AffiliateDisclosures';
+import Under99 from './pages/Under99';
+import Under199 from './pages/Under199';
+import Under299 from './pages/Under299';
+
 
 export default function App() {
   return (
@@ -21,6 +25,9 @@ export default function App() {
     <Route path="affiliate-disclosures" element={<AffiliateDisclosures />} />
     <Route path="about-us" element={<About />} />
     <Route path="contact-us" element={<Contact />} />
+    <Route path="under-99" element={<Under99 />} />
+    <Route path="under-199" element={<Under199 />} />
+    <Route path="under-299" element={<Under299 />} />
     <Route path="/search/:searchTerm" element={<SearchResult />} />
     <Route path=":category/:slug" element={<Category />} /> {/* Specific category route */}
     <Route path=":slug" element={<ProductDetail />} /> {/* Product detail route */}

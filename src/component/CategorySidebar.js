@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const CategorySidebar = () => {
+const SidebarTemplate = () => {
   const [categoryList, setCategoryList] = useState([]);
 
 
@@ -36,4 +36,4 @@ const CategorySidebar = () => {
   );
 };
 
-export default CategorySidebar;
+export default SidebarTemplate;

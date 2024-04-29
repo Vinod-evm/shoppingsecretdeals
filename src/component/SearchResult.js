@@ -57,14 +57,6 @@ const SearchResult = () => {
   };
 
   return (
-    // <div>
-    //   <h2>Search Results for: {searchTerm}</h2>
-    //   <ul>
-    //     {searchResults.map(result => (
-    //       <li key={result.id}>{result.title}</li>
-    //     ))}
-    //   </ul>
-    // </div>
     <div className="container-fluid">
     <div className="row">
       {/* Left Sidebar - Category List */}
@@ -74,9 +66,6 @@ const SearchResult = () => {
       {/* Right Sidebar - Current Category and Products */}
       <div className="col-md-9">
         <div className='category_right'>
-        {/* Current Category Name */}
-        {/* {category && <h1>{category.name}</h1>} */}
-        {/* Trending Products */}
         {renderProductDetails()}
         </div>
       </div>
