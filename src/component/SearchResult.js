@@ -7,9 +7,10 @@ const SearchResult = () => {
   const { searchTerm } = useParams();
   const [searchResults, setSearchResults] = useState([]);
   console.log(searchResults,"searchResults");
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-    fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?search=${searchTerm}&_embed`)
+    fetch(`${baseUrl}/wp-json/wp/v2/posts?search=${searchTerm}&_embed`)
       .then(response => response.json())
       .then(data => setSearchResults(data))
       .catch(error => console.error('Error fetching search results:', error));
@@ -34,7 +35,7 @@ const SearchResult = () => {
                     )}%
                   </span>
                 
-                <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
+                <a target="_blank" className="buy_btn" href={pro.meta.rehub_offer_product_url}>
                   Buy it now
                 </a>
               </div>

@@ -6,10 +6,11 @@ const ProductDetail = () => {
   const { slug } = useParams(); // Get the dynamic slug from the URL
   const [product, setProduct] = useState(null);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     // Fetch product details using the slug
-    fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?slug=${slug}`)
+    fetch(`${baseUrl}/wp-json/wp/v2/posts?slug=${slug}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch product');
@@ -31,7 +32,7 @@ const ProductDetail = () => {
     // Fetch recommended products with the same category
     if (product && product.categories.length > 0) {
       const categoryId = product.categories[0]; // Assuming the product has only one category
-      fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=4`)
+      fetch(`${baseUrl}/wp-json/wp/v2/posts?categories=${categoryId}&per_page=4`)
         .then(response => response.json())
         .then(data => {
           setRecommendedProducts(data); // Set recommended products
@@ -62,7 +63,7 @@ const ProductDetail = () => {
                   <span className='pdp_offer_price'>{product.meta.rehub_offer_product_price}</span>
                   <span className='pdp_old_price'><del>{product.meta.rehub_offer_product_price_old}</del></span>
                 </div>
-                <a className="pdp_buy_btn" href={product.meta.rehub_offer_product_url}>
+                <a target="_blank" className="pdp_buy_btn" href={product.meta.rehub_offer_product_url}>
                   Buy it Now
                 </a>
               </div>

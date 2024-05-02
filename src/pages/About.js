@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const AboutUsPage = () => {
   const [aboutUsData, setAboutUsData] = useState(null);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     const fetchAboutUsContent = async () => {
       try {
-        const response = await fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/pages/?slug=about-us-new/');
+        const response = await fetch(`${baseUrl}/wp-json/wp/v2/pages/?slug=about-us-new/`);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }

@@ -7,12 +7,13 @@ const ProductDetail = () => {
   const [category, setCategory] = useState(null);
   const [products, setProducts] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-  console.log(categoryList,'categoryList');
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+   console.log(categoryList,'categoryList');
 
   // Fetch category list
   useEffect(() => {
     function fetchCatList() {
-    fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/categories?per_page=50')
+    fetch(`${baseUrl}/wp-json/wp/v2/categories?per_page=50`)
       .then(response => response.json())
       .then(data => {
         setCategoryList(data); // Set category list
@@ -24,7 +25,7 @@ const ProductDetail = () => {
 
   // Fetch category information using the slug
   useEffect(() => {
-    fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/categories/?slug=${slug}`)
+    fetch(`${baseUrl}/wp-json/wp/v2/categories/?slug=${slug}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch category');
@@ -36,7 +37,7 @@ const ProductDetail = () => {
           const categoryId = data[0].id;
           setCategory(data[0]); // Set category data if found
           // Fetch products associated with the category using the category ID
-          fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=50`)
+          fetch(`${baseUrl}/wp-json/wp/v2/posts?categories=${categoryId}&per_page=50`)
             .then(response => {
               if (!response.ok) {
                 throw new Error('Failed to fetch products');
@@ -74,7 +75,7 @@ const ProductDetail = () => {
                     )}%
                   </span>
                 
-                <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
+                <a target="_blank" className="buy_btn" href={pro.meta.rehub_offer_product_url}>
                   Buy it now
                 </a>
               </div>

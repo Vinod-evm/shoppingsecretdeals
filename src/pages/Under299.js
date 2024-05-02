@@ -10,6 +10,7 @@ const Under299 = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const perPage = 50; // Number of posts per page
   const maxVisiblePages = 5; // Maximum number of visible page numbers
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     fetchPosts();
@@ -23,7 +24,7 @@ const Under299 = () => {
 
   const fetchPosts = () => {
     setLoading(true); // Set loading state to true while fetching
-    fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?per_page=${perPage}&page=${currentPage}`)
+    fetch(`${baseUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${currentPage}`)
       .then((response) => {
         const totalPagesHeader = response.headers.get('X-WP-TotalPages');
         setTotalPages(totalPagesHeader ? parseInt(totalPagesHeader) : 1);
@@ -199,7 +200,7 @@ const Under299 = () => {
                             extractNumericalValue(pro.meta.rehub_offer_product_price)
                           )}%
                         </span>
-                        <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
+                        <a target="_blank" className="buy_btn" href={pro.meta.rehub_offer_product_url}>
                           Buy it now
                         </a>
                       </div>

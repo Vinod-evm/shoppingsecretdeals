@@ -8,6 +8,7 @@ const DealProduct = () => {
   const [dealProducts, setDealProducts] = useState([]);
   const [categoryMap, setCategoryMap] = useState({});
   const [showSlider, setShowSlider] = useState(false);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     const fetchCategoryNames = (products) => {
@@ -23,7 +24,7 @@ const DealProduct = () => {
         });
     };
     function fetchDealPost() {
-      fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/posts')
+      fetch(`${baseUrl}/wp-json/wp/v2/posts`)
         .then(response => response.json())
         .then(data => {
           setDealProducts(data);
@@ -147,7 +148,7 @@ const DealProduct = () => {
           <Slider {...settings}>
           {dealProducts.map(pro => (
           <div key={pro.id} className="deal-item">
-            <Link to={pro.slug}><img src={pro.jetpack_featured_media_url} alt={pro.name} /></Link>
+            <Link to={pro.slug}><img src={pro.jetpack_featured_media_url} alt={pro.title.rendered} /></Link>
             <span className='offer_price'>{pro.meta.rehub_offer_product_price}</span>
             <span className='old_price'><del>{pro.meta.rehub_offer_product_price_old}</del></span>
             <Link to={pro.slug}><h2 className='product_ttl'>{pro.title.rendered}</h2></Link>
@@ -157,7 +158,7 @@ const DealProduct = () => {
                 extractNumericalValue(pro.meta.rehub_offer_product_price)
               )}%
             </span>
-            <a className="buy_btn" href={pro.meta.rehub_offer_product_url}>
+            <a target="_blank" className="buy_btn" href={pro.meta.rehub_offer_product_url}>
               Buy it now
             </a>
             <div className="category_info"> 

@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 
 const AffiliateDisclosures = () => {
   const [affiliateDisclosuresData, setAffiliateDisclosuresData] = useState(null);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     const fetchAffiliateDisclosuresContent = async () => {
       try {
-        const response = await fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/pages/?slug=affiliate-disclosures-new/');
+        const response = await fetch(`${baseUrl}/wp-json/wp/v2/pages/?slug=affiliate-disclosures-new/`);
         if (!response.ok) {
           throw new Error('Failed to fetch affiliate disclosures data');
         }
