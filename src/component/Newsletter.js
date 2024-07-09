@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Newsletter = () => {
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({ 
         yourName: '',
         yourEmail: '',
         yourMessage: '',
