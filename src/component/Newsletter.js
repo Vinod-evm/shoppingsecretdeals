@@ -3,9 +3,7 @@ import axios from 'axios';
 
 const Newsletter = () => {
     const [formData, setFormData] = useState({ 
-        yourName: '',
-        yourEmail: '',
-        yourMessage: '',
+        yourEmail: ''
       });
       const [responseMessage, setResponseMessage] = useState('');
     
@@ -22,9 +20,7 @@ const Newsletter = () => {
         const url = `https://shoppingsecretdeals.com/wp-json/contact-form-7/v1/contact-forms/${formId}/feedback`;
     
         const formPayload = {
-          'your-name': formData.yourName,
           'your-email': formData.yourEmail,
-          'your-message': formData.yourMessage,
         };
     
         try {
@@ -41,14 +37,7 @@ const Newsletter = () => {
     
       return (
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="yourName"
-            value={formData.yourName}
-            onChange={handleChange}
-            placeholder="Your Name"
-            required
-          />
+          
           <input
             type="email"
             name="yourEmail"
@@ -57,13 +46,7 @@ const Newsletter = () => {
             placeholder="Your Email"
             required
           />
-          <textarea
-            name="yourMessage"
-            value={formData.yourMessage}
-            onChange={handleChange}
-            placeholder="Your Message"
-            required
-          ></textarea>
+         
           <button type="submit">Send</button>
           {responseMessage && <p>{responseMessage}</p>}
         </form>
