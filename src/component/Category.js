@@ -62,7 +62,7 @@ const ProductDetail = () => {
         <div className='trend_grid row'>
           {products.map(pro => (
             <div key={pro.id} className="col-sm-3">
-              <div className='trend-item'>
+              <div className='trend-item s'>
                 <Link to={`/${pro.slug}`}>
                   <img src={pro.jetpack_featured_media_url} alt={pro.name} /></Link>
                   <span className='cat_p_offer_price'>{pro.meta.rehub_offer_product_price}</span>
