@@ -10,32 +10,35 @@ import 'slick-carousel/slick/slick-theme.css';
 const CategorySlider = () => {
   const [categories, setCategories] = useState([]);
   const [showSlider, setShowSlider] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Loader state
 
   useEffect(() => {
-    fetch('https://shoppingsecretdeals.com/wp-json/wp/v2/categories')
-      .then(response => response.json())
-      .then(data => {
-        // Fetch the first post associated with each category
-        const categoryPromises = data.map(category => {
+    const staticIds = [1389, 1010, 96, 980, 974, 989, 987, 1016, 1017, 1038, 1119];
+    
+    // Fetch category data (name, slug) for each static category ID
+    const categoryPromises = staticIds.map(id => {
+      return fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/categories/${id}`)
+        .then(response => response.json())
+        .then(category => {
+          // Fetch the first post associated with the category to get the image
           return fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?categories=${category.id}&_per_page=1`)
             .then(response => response.json())
             .then(posts => {
-              // Extract the first image URL from the fetched post
               const firstPost = posts[0];
               if (firstPost && firstPost.jetpack_featured_media_url) {
+                // Combine category details and image
                 return { ...category, image: firstPost.jetpack_featured_media_url };
               }
               return { ...category, image: null };
             });
         });
+    });
 
-        // Resolve all promises and set categories with images
-        Promise.all(categoryPromises)
-          .then(categoriesWithImages => {
-            setCategories(categoriesWithImages);
-            setShowSlider(true);
-          })
-          .catch(error => console.error('Error fetching categories:', error));
+    // Resolve all promises and set categories with images
+    Promise.all(categoryPromises)
+      .then(categoriesWithImages => {
+        setCategories(categoriesWithImages);
+        setShowSlider(true);
       })
       .catch(error => console.error('Error fetching categories:', error));
   }, []);
@@ -96,19 +99,23 @@ const CategorySlider = () => {
 
   return (
     <div className='category_slider margin-top'>
-      {showSlider && (
-        <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />}>
-          {categories.map(category => (
-            <div key={category.id} className="category-item">
-              <Link to={`/category/${category.slug}`}>
-                {/* Render category image if available */}
-                {category.image && <img src={category.image} alt={category.name} />}
-                {/* Render category name */}
-                <span>{category.name}</span>
-              </Link>
-            </div>
-          ))}
-        </Slider>
+      {isLoading ? ( // Show loader while data is loading
+        <div className="loader">Loading...</div>
+      ) : (
+        showSlider && (
+          <Slider {...settings} prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />}>
+            {categories.map(category => (
+              <div key={category.id} className="category-item">
+                <Link to={`/category/${category.slug}`}>
+                  {/* Render category image if available */}
+                  {category.image && <img src={category.image} alt={category.name} />}
+                  {/* Render category name */}
+                  <span>{category.name}</span>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        )
       )}
     </div>
   );

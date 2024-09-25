@@ -17,8 +17,6 @@ class Home extends Component {
           <CategorySlider/>
           <DealProduct/>
           <TrendingProduct/>
-          <Newsletter />
-
         </div>
         <div className='row mt-5'>
   <div className='best_deal_section'>
@@ -33,12 +31,12 @@ class Home extends Component {
           <div className='best-deal-right'>
             <img src={bestdeal} alt='Best Deal' className='img-fluid' />
           </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-        </div>
+  </div>
     );
   }
 }
