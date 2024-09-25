@@ -39,9 +39,10 @@ const CategorySlider = () => {
       .then(categoriesWithImages => {
         setCategories(categoriesWithImages);
         setShowSlider(true);
+        setIsLoading(false)
       })
       .catch(error => console.error('Error fetching categories:', error));
-  }, []);
+  });
 
   const settings = {
     dots: false,
