@@ -6,6 +6,7 @@ const Under99 = () => {
   const [sortBy, setSortBy] = useState('low_to_high');
   const [visibleProducts, setVisibleProducts] = useState(12);
   const [loading, setLoading] = useState(true);
+  const [moreloading, setmoreLoading] = useState(false);
   const [totalProductsLoaded, setTotalProductsLoaded] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -76,6 +77,7 @@ const Under99 = () => {
   };
 
   const loadMore = async () => {
+    setmoreLoading(true);
     if (totalProductsLoaded) return; // Stop if all products are already loaded
   
     const nextVisibleProducts = visibleProducts + 12; // Increment visible products
@@ -117,6 +119,7 @@ const Under99 = () => {
   
     // Increment the current page by 25 to mark the next batch (e.g., 51 to 75 for the next click)
     setCurrentPage(currentBatchPage);
+    setmoreLoading(false)
   };
   
   
@@ -180,7 +183,11 @@ const Under99 = () => {
               {visibleProducts < allProducts.length && !totalProductsLoaded && (
                 <button className="loadmore" onClick={loadMore}>Load More</button>
               )}
+              
             </>
+          )}
+           {moreloading && (
+            <div>Loading...</div>
           )}
         </div>
       </div>

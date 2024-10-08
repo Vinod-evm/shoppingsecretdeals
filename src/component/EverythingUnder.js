@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../css/EverythingUnder.css'; // Add this for skeleton styling
 
 const EverythingUnder = () => {
@@ -43,12 +44,12 @@ const EverythingUnder = () => {
         ) : (
           unders.slice().reverse().map(under => (
             <div key={under.id} className="under-item">
-              <a href={under.slug}>
+               <Link to={under.slug}>
                 <img
                   src={under.yoast_head_json.og_image[0].url}
                   alt={under.title.rendered}
                 />
-              </a>
+              </Link>
             </div>
           ))
         )}
