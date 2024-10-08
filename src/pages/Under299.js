@@ -35,7 +35,7 @@ const Under299 = () => {
         const filteredData = data.filter((product) => {
           const priceString = product.meta.rehub_offer_product_price;
           const price = extractPrice(priceString);
-          return price < 99;
+          return price < 299;
         });
   
         const sortedData = sortProducts(filteredData, sortBy);

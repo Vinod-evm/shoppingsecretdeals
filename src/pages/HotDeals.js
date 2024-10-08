@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import HotDealBanner from '../images/hotdeal-banner.webp';
+import '../css/Hotdeals.css'; // CSS for skeleton loader
+// Skeleton Component for loading
 
 const HotDeals = () => {
   const [hotDeals, setHotDeals] = useState([]);
@@ -96,10 +98,18 @@ const HotDeals = () => {
 ))}
 
 </div>
-
-          {loading && <div>Loading...</div>} {/* Display "Loading..." message while fetching data */}
-        </div>
-      </div>
+<div className="skeleton-container_hot">
+    {loading && Array.from({ length: 4 }).map((_, index) => (  
+    <div className="skeleton-item">
+      <div className="skeleton-image"></div>
+      <div className="skeleton-title"></div>
+      <div className="skeleton-price"></div>
+      <div className="skeleton-button"></div>
+    </div>))} 
+  </div>
+    </div>
+  
+    </div>
     </div>
   );
 };

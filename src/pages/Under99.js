@@ -3,72 +3,70 @@ import { Link } from 'react-router-dom';
 
 const Under99 = () => {
   const [under99, setUnder99] = useState([]);
-  const [sortBy, setSortBy] = useState('low_to_high'); // Default sort order
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const [totalPages, setTotalPages] = useState(1); // Total number of pages
-  const [visiblePages, setVisiblePages] = useState([]); // Visible page numbers
-  const [loading, setLoading] = useState(true); // Loading state
-  const perPage = 50; // Number of posts per page
-  const maxVisiblePages = 5; // Maximum number of visible page numbers
+  const [sortBy, setSortBy] = useState('low_to_high');
+  const [visibleProducts, setVisibleProducts] = useState(12);
+  const [loading, setLoading] = useState(true);
+  const [totalProductsLoaded, setTotalProductsLoaded] = useState(false);
+  const [allProducts, setAllProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(26);
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const productsPerPage = 50; // Number of products per page
 
   useEffect(() => {
-    fetchPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]); // Fetch posts whenever currentPage changes
+    fetchAllProducts();
+  }, []);
 
-  useEffect(() => {
-    generateVisiblePages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalPages, currentPage]); // Update visible pages whenever totalPages or currentPage changes
+  const fetchAllProducts = async () => {
+    setLoading(true);
+    let page = 1;
+    let productsUnder99 = [];
 
-  const fetchPosts = () => {
-    setLoading(true); // Set loading state to true while fetching
-    fetch(`${baseUrl}/wp-json/wp/v2/posts?per_page=${perPage}&page=${currentPage}`)
-      .then((response) => {
-        const totalPagesHeader = response.headers.get('X-WP-TotalPages');
-        setTotalPages(totalPagesHeader ? parseInt(totalPagesHeader) : 1);
-        return response.json();
-      })
-      .then((data) => {
-        // Filter the data to include only products with a price less than 99
+    // Fetch products until we have at least 24
+    while (productsUnder99.length < 12) {
+      try {
+        const response = await fetch(`${baseUrl}/wp-json/wp/v2/posts?per_page=${productsPerPage}&page=${page}`);
+        const data = await response.json();
+
+        // Filter products under 99
         const filteredData = data.filter((product) => {
-          const priceString = product.meta.rehub_offer_product_price;
-          const price = extractPrice(priceString);
+          const price = extractPrice(product.meta.rehub_offer_product_price);
           return price < 99;
         });
-  
-        const sortedData = sortProducts(filteredData, sortBy);
-        setUnder99(sortedData);
-        setLoading(false); // Set loading state to false after fetching
-      })
-      .catch((error) => {
-        console.error('Error fetching banners:', error);
-        setLoading(false); // Set loading state to false if there's an error
-      });
+
+        productsUnder99 = [...productsUnder99, ...filteredData];
+
+        // Break if no more products are available
+        if (data.length < productsPerPage) {
+          setTotalProductsLoaded(true);
+          break;
+        }
+
+        page++;
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setError('Failed to load products. Please try again later.');
+        break;
+      }
+    }
+
+    setAllProducts(productsUnder99);
+    setUnder99(productsUnder99.slice(0, visibleProducts));
+    setLoading(false);
   };
 
   const extractPrice = (priceString) => {
-    // Regular expression to extract numerical value from the price string
     const regex = /(?:₹|Rs?\.\s*)\s*(\d{1,}(?:,\d{3})*(?:\.\d+)?)/;
-
     const match = priceString.match(regex);
-    console.log(match,'match');
-    if (match) {
-      return parseFloat(match[1]);
-    } else {
-      // Return 0 if the price format is not recognized
-      return 0;
-    }
+    return match ? parseFloat(match[1].replace(/,/g, '')) : 0;
   };
 
   const sortProducts = (products, order) => {
-    const sortedProducts = [...products].sort((a, b) => {
-      const priceA = parseFloat(a.meta.rehub_offer_product_price.replace(/[^\d.-]/g, ''));
-      const priceB = parseFloat(b.meta.rehub_offer_product_price.replace(/[^\d.-]/g, ''));
+    return [...products].sort((a, b) => {
+      const priceA = extractPrice(a.meta.rehub_offer_product_price);
+      const priceB = extractPrice(b.meta.rehub_offer_product_price);
       return order === 'low_to_high' ? priceA - priceB : priceB - priceA;
     });
-    return sortedProducts;
   };
 
   const handleSortChange = (order) => {
@@ -77,87 +75,55 @@ const Under99 = () => {
     setSortBy(order);
   };
 
-  const generateVisiblePages = () => {
-    const totalVisiblePageNumbers = Math.min(totalPages, maxVisiblePages);
-    const firstVisiblePage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    const lastVisiblePage = Math.min(totalPages, firstVisiblePage + totalVisiblePageNumbers - 1);
-    const pages = [];
-    for (let i = firstVisiblePage; i <= lastVisiblePage; i++) {
-      pages.push(i);
+  const loadMore = async () => {
+    if (totalProductsLoaded) return; // Stop if all products are already loaded
+  
+    const nextVisibleProducts = visibleProducts + 12; // Increment visible products
+    setVisibleProducts(nextVisibleProducts);
+  
+    let nextProducts = [];
+    let currentBatchPage = currentPage; // Start fetching from the current page
+  
+    // Loop to fetch 25 pages (e.g., 26 to 50)
+    while (nextProducts.length < 12 && currentBatchPage < currentPage + 25) {
+      try {
+        const response = await fetch(`${baseUrl}/wp-json/wp/v2/posts?per_page=${productsPerPage}&page=${currentBatchPage}`);
+        const data = await response.json();
+  
+        // Filter products under 99
+        const filteredData = data.filter((product) => {
+          const price = extractPrice(product.meta.rehub_offer_product_price);
+          return price < 99;
+        });
+  
+        nextProducts = [...nextProducts, ...filteredData];
+  
+        if (data.length < productsPerPage) {
+          setTotalProductsLoaded(true); // No more products to fetch
+          break;
+        }
+  
+        currentBatchPage++; // Increment the page by 1 after each fetch
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setError('Failed to load products. Please try again later.');
+        break;
+      }
     }
-    setVisiblePages(pages);
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handlePageClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  
+    // Update the state with the newly fetched products
+    setAllProducts((prevProducts) => [...prevProducts, ...nextProducts]);
+    setUnder99((prevUnder99) => [...prevUnder99, ...nextProducts]);
+  
+    // Increment the current page by 25 to mark the next batch (e.g., 51 to 75 for the next click)
+    setCurrentPage(currentBatchPage);
   };
   
-  const extractNumericalValue = (priceString) => {
-    // Regular expression to extract numerical value from the price string
-    const regex = /(?:₹|Rs?\.\s*)\s*(\d{1,3}(?:,\d{3})*(?:\.\d+)?)/;
-    const match = priceString.match(regex);
-    if (match) {
-      return parseFloat(match[1].replace(/,/g, ''));
-    } else {
-      return NaN; // Return NaN if the price format is not recognized
-    }
-  };
+  
 
   const calculateDiscountPercentage = (mainPrice, discountPrice) => {
     const discountAmount = mainPrice - discountPrice;
-    if (mainPrice !== 0) {
-      const discountPercentage = (discountAmount / mainPrice) * 100;
-      return Math.round(discountPercentage);
-    } else {
-      return NaN; // Return NaN if mainPrice is zero to avoid division by zero error
-    }
-  };
-
-  const renderPagination = () => {
-    return (
-      <>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Prev
-        </button>
-        {visiblePages[0] > 1 && (
-          <>
-            <button onClick={() => handlePageClick(1)}>1</button>
-            {visiblePages[0] > 2 && <span>...</span>}
-          </>
-        )}
-        {visiblePages.map((pageNumber) => (
-          <button key={pageNumber} onClick={() => handlePageClick(pageNumber)} className={currentPage === pageNumber ? 'active' : ''}>
-            {pageNumber}
-          </button>
-        ))}
-        {visiblePages[visiblePages.length - 1] < totalPages && (
-          <>
-            {visiblePages[visiblePages.length - 1] < totalPages - 1 && <span>...</span>}
-            <button onClick={() => handlePageClick(totalPages)}>{totalPages}</button>
-          </>
-        )}
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
-      </>
-    );
-  };
-
-  // Function to get the class name for the sorting button
-  const getButtonClass = (order) => {
-    return sortBy === order ? 'sort_by active' : 'sort_by';
+    return mainPrice !== 0 ? Math.round((discountAmount / mainPrice) * 100) : NaN;
   };
 
   return (
@@ -166,15 +132,18 @@ const Under99 = () => {
         <div className="under_container">
           <div className="top_vertical_filter">
             <h3 className="sort_by_price">Sort by Price</h3>
-            <button onClick={() => handleSortChange('low_to_high')} className={getButtonClass('low_to_high')} >
+            <button onClick={() => handleSortChange('low_to_high')} className={sortBy === 'low_to_high' ? 'active' : ''}>
               Low to High
             </button>
-            <button onClick={() => handleSortChange('high_to_low')} className={getButtonClass('high_to_low')}>
+            <button onClick={() => handleSortChange('high_to_low')} className={sortBy === 'high_to_low' ? 'active' : ''}>
               High to Low
             </button>
           </div>
+
           {loading ? (
             <div>Loading...</div>
+          ) : error ? (
+            <div>{error}</div>
           ) : (
             <>
               {under99.length === 0 ? (
@@ -196,9 +165,9 @@ const Under99 = () => {
                         </Link>
                         <span className='discount_percentage'>
                           {calculateDiscountPercentage(
-                            extractNumericalValue(pro.meta.rehub_offer_product_price_old),
-                            extractNumericalValue(pro.meta.rehub_offer_product_price)
-                          )}%
+                            extractPrice(pro.meta.rehub_offer_product_price_old),
+                            extractPrice(pro.meta.rehub_offer_product_price)
+                          )}% 
                         </span>
                         <a target="_blank" className="buy_btn" href={pro.meta.rehub_offer_product_url}>
                           Buy it now
@@ -208,7 +177,9 @@ const Under99 = () => {
                   ))}
                 </div>
               )}
-              <div className="pagination">{renderPagination()}</div>
+              {visibleProducts < allProducts.length && !totalProductsLoaded && (
+                <button className="loadmore" onClick={loadMore}>Load More</button>
+              )}
             </>
           )}
         </div>

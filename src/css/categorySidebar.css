@@ -1,0 +1,73 @@
+  .category_skeleton-item {
+    background-color: #e0e0e0; /* Light gray color */
+    height: 20px; /* Height of the skeleton item */
+    margin: 5px 0; /* Spacing between items */
+    border-radius: 4px; /* Rounded corners */
+    width: 100%; /* Full width */
+    animation: pulse 1.5s infinite; /* Animation effect */
+  }
+  
+  @keyframes pulse {
+    0% {
+      background-color: #e0e0e0;
+    }
+    50% {
+      background-color: #d6d6d6;
+    }
+    100% {
+      background-color: #e0e0e0;
+    }
+  }
+
+  .search_loading-skeleton {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .search_skeleton-item {
+    width: 100%; /* Adjust as needed */
+    background-color: #e0e0e0; /* Light gray color */
+    border-radius: 4px; /* Rounded corners */
+    padding: 15px; /* Spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search_skeleton-image {
+    width: 100%;
+    height: 150px; /* Height of the skeleton image */
+    background-color: #d6d6d6; /* Slightly darker gray */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .search_skeleton-text {
+    width: 80%;
+    height: 20px; /* Height of the skeleton text */
+    margin: 10px 0; /* Spacing between items */
+    background-color: #d6d6d6; /* Same color for consistency */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .search_skeleton-price {
+    width: 60%;
+    height: 20px; /* Height of the skeleton price */
+    background-color: #d6d6d6; /* Same color for consistency */
+    border-radius: 4px; /* Rounded corners */
+  }
+  .cat_skeleton-loader {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .cat_skeleton-item {
+    width: 100%;
+    height: 150px; /* Adjust height as necessary */
+    background: #ccc; /* Skeleton color */
+    border-radius: 5px; /* Optional rounding */
+    animation: pulse 1.5s infinite; /* Animation for loading effect */
+  }
+  
+ 
+  
+  

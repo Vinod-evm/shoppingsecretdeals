@@ -4,13 +4,38 @@ import fb from "../images/fb.png"
 import insta from "../images/insta.png"
 import twitter from "../images/twitter.png"
 import telegram from "../images/telegram.png"
+import '../css/AffiliateDisclosures.css';
+
+const Skeleton = () => (
+  <div className="skeleton-container container-fluid">
+    <div className="skeleton-title"></div>
+    <div className="skeleton-content"></div>
+    <div className="skeleton-content"></div>
+    <div className="skeleton-title"></div>
+    <div className="skeleton-content"></div>
+  </div>
+);
 
 const ContactPage = () => {
   const [contactData, setContactData] = useState(null);
   const baseUrl = process.env.REACT_APP_BASE_URL;
+  const cacheDuration = 60 * 60 * 1000; // Cache for 1 hour
 
   useEffect(() => {
     const fetchContactContent = async () => {
+      const cacheKey = 'contactPageData';
+      const cachedData = localStorage.getItem(cacheKey);
+
+      // Check if cached data is available and still valid
+      if (cachedData) {
+        const { timestamp, data } = JSON.parse(cachedData);
+        if (Date.now() - timestamp < cacheDuration) {
+          setContactData(data);
+          return;
+        }
+      }
+
+      // Fetch data from API if not cached or cache expired
       try {
         const response = await fetch(`${baseUrl}/wp-json/wp/v2/pages/?slug=contact-page-new/`);
         if (!response.ok) {
@@ -19,6 +44,9 @@ const ContactPage = () => {
         const data = await response.json();
         if (data.length > 0) {
           setContactData(data[0]);
+
+          // Store the fetched data in local storage
+          localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: data[0] }));
         } else {
           console.log('No data found for the "contact" page.');
         }
@@ -28,10 +56,10 @@ const ContactPage = () => {
     };
 
     fetchContactContent();
-  }, []);
+  }, [baseUrl, cacheDuration]);
 
   if (!contactData) {
-    return <div>Loading...</div>;
+    return <Skeleton />; // Show skeleton while loading
   }
 
   return (
@@ -53,11 +81,15 @@ const ContactPage = () => {
             <div className='contact_social_area'>
               <div className='social_links'>
                 <a href={contactData.acf.facebook_link} target='_blank' rel='noopener noreferrer'><img alt='fb' src={fb} /></a>
-                <a href={contactData.acf.twitter_link} target='_blank' rel='noopener noreferrer'><img alt='x' src={twitter}/></a>
-                <a href={contactData.acf.instagram_link} target='_blank' rel='noopener noreferrer'><img alt='insta' src={insta}/></a>
-                <a href={contactData.acf.telegram_link} target='_blank' rel='noopener noreferrer'><img alt='tel' src={telegram}/></a>
+                <a href={contactData.acf.twitter_link} target='_blank' rel='noopener noreferrer'><img alt='x' src={twitter} /></a>
+                <a href={contactData.acf.instagram_link} target='_blank' rel='noopener noreferrer'><img alt='insta' src={insta} /></a>
+                <a href={contactData.acf.telegram_link} target='_blank' rel='noopener noreferrer'><img alt='tel' src={telegram} /></a>
               </div>
-              <div className='telegram_button'><a href="https://telegram.me/Shopping_Secret_Deals"><img alt='tel' src={tegramImage} />Join Our Telegram Channel</a></div>
+              <div className='telegram_button'>
+                <a href="https://telegram.me/Shopping_Secret_Deals">
+                  <img alt='tel' src={tegramImage} />Join Our Telegram Channel
+                </a>
+              </div>
             </div>
           </div>
         </div>

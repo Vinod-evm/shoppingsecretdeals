@@ -5,7 +5,7 @@ import CategorySlider from "../component/CategorySlider";
 import DealProduct from "../component/DealProduct";
 import TrendingProduct from "../component/TrendingProduct";
 import bestdeal from "../images/Image-25.png"
-import Newsletter from '../component/Newsletter';
+
 
 class Home extends Component {
   render() {

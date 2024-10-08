@@ -8,15 +8,17 @@ const SearchForm = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showAllResults,] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const searchRef = useRef(null);
 
   useEffect(() => {
-    function clickAnywhere(){
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };}
+    function clickAnywhere() {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
     clickAnywhere();
   }, []);
 
@@ -38,6 +40,8 @@ const SearchForm = () => {
       setSearchResults([]);
       return;
     }
+
+    setLoading(true); // Set loading to true before fetching
     try {
       const response = await fetch(`https://shoppingsecretdeals.com/wp-json/wp/v2/posts?search=${value}&_embed`);
       if (!response.ok) {
@@ -47,6 +51,8 @@ const SearchForm = () => {
       setSearchResults(data);
     } catch (error) {
       console.error('Error fetching search results:', error);
+    } finally {
+      setLoading(false); // Set loading to false after fetch completes
     }
   };
 
@@ -63,7 +69,8 @@ const SearchForm = () => {
         />
         <button className='form_btn' type="submit"> <FontAwesomeIcon icon={faSearch} /></button>
       </form>
-      {searchResults.length > 0 && (
+      {loading && <div className="loading">Loading...</div>} {/* Loading indicator */}
+      {searchResults.length > 0 && !loading && (
         <div className="live-search-results">
           {filteredResults.map((result) => (
             <div className='list_pro' key={result.id}>
